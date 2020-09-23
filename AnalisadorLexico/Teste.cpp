@@ -3,6 +3,7 @@ using namespace std;
 
 class Tag
 {
+    public:
     const static int
 
         // Palavras Reservadas
@@ -11,9 +12,9 @@ class Tag
         INIT = 258,
         END = 259,
         DECLARE = 260,
-        INT = 261,
-        FLOAT = 262,
-        CHAR = 263,
+        INT_ = 261,
+        FLOAT_ = 262,
+        CHAR_ = 263,
         IF = 264,
         THEN = 265,
         ELSE = 266,
@@ -45,7 +46,7 @@ class Tag
         LP = 302,
         RP = 303,
         COMMA = 304,
-        POINT = 305,
+        DOT = 305,
         COLON = 306,
         SQ = 307,
         DQ = 308,
@@ -54,6 +55,7 @@ class Tag
 
 class Token
 {
+    public:
     int tag;
 
     Token(int t)
@@ -67,60 +69,30 @@ class Token
     }
 };
 
-class Num : public Token
+class Int : public Token
 {
+    public:
     int value;
 
-    Num(int value)
+    Int(int value):Token(Tag::INT_)
     {
-        super(Tag.NUM);
-        this.value = value;
+        value = value;
     }
 
     string toString()
     {
         return "" + value;
     }
-}
+};
 
 class Word : public Token
 {
+private: 
     string lexeme = "";
 
-    //Operadores Logicos
-    static Word not = Word("!", Tag.NOT);
-    static Word and = Word("&&", Tag.AND);
-    static Word or = Word("||", Tag.OR);
-    static Word eq = Word("==", Tag.EQ);
-    static Word ne = Word("!=", Tag.NE);
-    static Word lt = Word("<", Tag.LT);
-    static Word le = Word("<=", Tag.LE);
-    static Word gt = Word(">", Tag.GT);
-    static Word ge = Word(">=", Tag.GE);
-    static Word in = Word(">>", Tag.IN);
-    static Word out = Word("<<", Tag.OUT);
-
-    //Operadores
-    static Word assing = Word("=", Tag.ASSING);
-    static Word plus = Word("+", Tag.PLUS);
-    static Word minus = Word("-", Tag.MINUS);
-    static Word mult = Word("*", Tag.MULT);
-    static Word div = Word("/", Tag.DIV);
-
-    //Outros Tokens
-    static Word lp = Word("(", Tag.LP);
-    static Word rp = Word(")", Tag.RP);
-    static Word semi = Word(";", Tag.SEMI);
-    static Word comma = Word(",", Tag.COMMA);
-    static Word colon = Word(":", Tag.COLON);
-    static Word sq = Word("\'", Tag.SQ);
-    static Word dq = Word("\"", Tag.DQ);
-    static Word point = Word(".", Tag.POINT);
-
-
-    Word(string s, int tag)
+public:
+    Word(string s, int tag):Token(tag)
     {
-        super(tag);
         lexeme = s;
     }
 
@@ -128,4 +100,69 @@ class Word : public Token
     {
         return "" + lexeme;
     }
+
+    static void fill(){
+        not_ = Word("!", Tag::NOT);
+        and_ = Word("&&", Tag::AND);
+        or_ = Word("||", Tag::OR);
+        eq = Word("==", Tag::EQ);
+        ne = Word("!=", Tag::NE);
+        lt = Word("<", Tag::LT);
+        le = Word("<=", Tag::LE);
+        gt = Word(">", Tag::GT);
+        ge = Word(">=", Tag::GE);
+        in = Word(">>", Tag::IN);
+        out = Word("<<", Tag::OUT);
+
+        //Operadores
+        assing = Word("=", Tag::ASSING);
+        plus = Word("+", Tag::PLUS);
+        minus = Word("-", Tag::MINUS);
+        mult = Word("*", Tag::MULT);
+        div = Word("/", Tag::DIV);
+
+        //Outros Tokens
+        lp = Word("(", Tag::LP);
+        rp = Word(")", Tag::RP);
+        semi = Word(";", Tag::SEMI);
+        comma = Word(",", Tag::COMMA);
+        colon = Word(":", Tag::COLON);
+        sq = Word("\'", Tag::SQ);
+        dq = Word("\"", Tag::DQ);
+        dot = Word(".", Tag::DOT);
+    }
+
+    //Operadores Logicos
+    static Word not_,
+    and_,
+    or_,
+    eq,
+    ne,
+    lt,
+    le,
+    gt,
+    ge,
+    in,
+    out;
+
+    //Operadores
+    static Word assing,
+    plus,
+    minus,
+    mult,
+    div;
+
+    //Outros Tokens
+    static Word lp,
+    rp,
+    semi,
+    comma,
+    colon,
+    sq,
+    dq,
+    dot;
+};
+
+int main(){
+
 }
